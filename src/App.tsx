@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import TodoList from "./Container/TodoList";
+
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -27,16 +27,15 @@ const themeLight = createMuiTheme({
   },
 });
 
-function App() {
+const App = () => {
   return (
     <div>
       <MuiThemeProvider theme={themeLight}>
         <CssBaseline />
-
         <TodoList />
       </MuiThemeProvider>
     </div>
   );
-}
+};
 
 export default App;
