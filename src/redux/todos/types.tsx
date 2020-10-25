@@ -1,14 +1,21 @@
 export interface Todo {
   id: number;
-  message: String;
+  title: string;
+  message: string;
 }
 
 export interface TodoState {
+  todo: Todo | {};
+}
+
+export interface TodosState {
   todos: Todo[];
 }
 
 export const ADD_TODO = "ADD_TODO";
 export const DELETE_TODO = "DELETE_TODO";
+export const ADD_SELECTED_TODO = "ADD_SELECTED_TODO";
+export const CLEAR_SELECTED_TODO = "CLEAR_SELECTED_TODO";
 
 interface AddTodoAction {
   type: typeof ADD_TODO;
@@ -20,4 +27,13 @@ interface DeleteTodoAction {
   payload: number;
 }
 
-export type TodoActionTypes = AddTodoAction | DeleteTodoAction;
+interface AddSelectedTodoAction {
+  type: typeof ADD_SELECTED_TODO;
+  payload: Todo;
+}
+
+interface ClearSelectedTodoAction {
+  type: typeof CLEAR_SELECTED_TODO;
+}
+
+export type TodoActionTypes = AddTodoAction | DeleteTodoAction | AddSelectedTodoAction | ClearSelectedTodoAction;
