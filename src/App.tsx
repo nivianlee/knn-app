@@ -1,19 +1,18 @@
 import React from "react";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Switch, Route, Link, withRouter, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./Container/Home";
 import TodoList from "./Container/TodoList";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Avatar from "@material-ui/core/Avatar";
+import NavBar from "./Component/NavBar";
 
 const themeLight = createMuiTheme({
   palette: {
@@ -97,41 +96,7 @@ const App = () => {
   return (
     <MuiThemeProvider theme={themeLight}>
       <div className={classes.root}>
-        <AppBar position="fixed" className={classes.appBar} elevation={0}>
-          <Toolbar>
-            <Avatar alt="Ares Maltipoo" src="/iconic.png" />
-            <Typography className={classes.toolbarFont} variant="h6" noWrap>
-              Kwok N Niv
-            </Typography>
-          </Toolbar>
-          <Divider />
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Toolbar />
-          <div className={classes.drawerContainer}>
-            <List>
-              {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-            <Divider />
-            <List>
-              {["All mail", "Trash", "Spam"].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-            </List>
-          </div>
-        </Drawer>
+        <NavBar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
