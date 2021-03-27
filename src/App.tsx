@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import {
   BrowserRouter as Router,
@@ -7,12 +7,18 @@ import {
   Link,
   withRouter,
   Redirect,
+  RouteComponentProps,
 } from "react-router-dom";
 import "./App.css";
 import Home from "./Container/Home";
 import TodoList from "./Container/TodoList";
+import Sidebar from "./Component/Sidebar";
 import { makeStyles } from "@material-ui/core/styles";
-import NavBar from "./Component/NavBar";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Avatar from "@material-ui/core/Avatar";
 
 const themeLight = createMuiTheme({
   palette: {
@@ -67,16 +73,6 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerContainer: {
-    overflow: "auto",
-  },
   content2: {
     display: "flex",
     justifyContent: "flex-start",
@@ -90,18 +86,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = () => {
+const App = (props: RouteComponentProps) => {
   const classes = useStyles();
+  const { match, location, history } = props;
+
+  useEffect(() => {
+    console.log(props);
+    console.log("you are now at " + location.pathname);
+    console.log();
+  }, []);
+
+  const nav = () => {
+    history.push(location.pathname);
+    console.log(history);
+  };
 
   return (
     <MuiThemeProvider theme={themeLight}>
       <div className={classes.root}>
-        <NavBar />
+        <AppBar position="fixed" className={classes.appBar} elevation={0}>
+          <Toolbar>
+            <Avatar alt="Ares Maltipoo" src="/iconic.png" />
+            <Typography className={classes.toolbarFont} variant="h6" noWrap>
+              Kwok N Niv
+            </Typography>
+          </Toolbar>
+          <Divider />
+        </AppBar>
+        <Sidebar />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route exact path="/home" component={Home}></Route>
-            <Route exact path="/" component={TodoList}></Route>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/">
+              <TodoList />
+            </Route>
           </Switch>
         </main>
       </div>
@@ -109,4 +130,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);
